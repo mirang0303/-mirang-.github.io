@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Location Info</title>
+<style>
+:root{--accent:#4F46E5;--muted:#6b7280}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:#f7f7fb;color:#111}
+.container{max-width:1100px;margin:32px auto;padding:16px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{margin:0;font-size:20px}
+button{background:var(--accent);color:white;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+button.ghost{background:transparent;color:var(--accent);border:1px solid rgba(79,70,229,.12)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:white;border-radius:12px;box-shadow:0 6px 18px rgba(16,24,40,.06);overflow:hidden;display:flex;flex-direction:column}
+.card img{width:100%;height:160px;object-fit:cover}
+.card .body{padding:12px;flex:1;display:flex;flex-direction:column}
+.meta{font-size:13px;color:var(--muted);margin-bottom:8px}
+.title{font-weight:600;margin:0 0 6px}
+.desc{font-size:14px;color:#333;flex:1}
+.actions{display:flex;gap:8px;margin-top:10px}
+.small{padding:6px 8px;border-radius:8px;font-size:13px}
+.edit{background:#fff;border:1px solid #e6e6f0;color:var(--accent)}
+.del{background:#fff;border:1px solid #ffd6d6;color:#b91c1c}
+
+
+/* Modal */
+.modal-backdrop{position:fixed;inset:0;display:none;justify-content:center;align-items:flex-start;padding:28px;z-index:50}
+.modal{background:white;border-radius:12px;padding:16px;width:100%;max-width:680px;box-shadow:0 12px 40px rgba(2,6,23,.3)}
+.row{display:flex;gap:12px;margin-bottom:12px}
+.col{flex:1}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+input[type=text],textarea{width:100%;padding:10px;border-radius:8px;border:1px solid #e9e9f3}
+textarea{min-height:120px;resize:vertical}
+.img-preview{height:150px;border-radius:8px;overflow:hidden;border:1px dashed #e3e3f7;display:flex;align-items:center;justify-content:center;background:#fafafa}
+.img-preview img{max-width:100%;max-height:100%;object-fit:cover}
+.toolbar{display:flex;gap:8px;align-items:center}
+.search{padding:8px 12px;border-radius:12px;border:1px solid #e9e9f3;min-width:220px}
+.empty{padding:48px;text-align:center;color:var(--muted)}
+
+
+@media (max-width:520px){.row{flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+<h1>Locations — Info Manager</h1>
+<div class="toolbar">
+<input id="search" class="search" placeholder="Search locations..." />
+<button id="openAdd">+ Add location</button>
+</div>
+</header>
+
+
+<main>
+<div id="grid" class="grid"></div>
+<div id="empty" class="empty" style="display:none">No locations yet. Click “+ Add location” to create one.</div>
+</main>
+</div>
+
+
+<!-- Modal form for add/edit -->
